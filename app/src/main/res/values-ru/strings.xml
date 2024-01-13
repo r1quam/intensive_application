@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">test_application</string>
+
+    <!--   Fragment Main   -->
+    <string name="title_main">Главная</string>
+    <string name="add">Добавить</string>
+
+    <!--   Fragment Add   -->
+    <string name="title_add">Добавить</string>
+    <string name="name">Имя</string>
+    <string name="date">Дата</string>
+    <string name="description">Описание</string>
+    <string name="start">Начало</string>
+    <string name="end">Конец</string>
+    <string name="wrong_time_interval">Неверный временной интервал</string>
+
+    <!--   Fragment Details   -->
+    <string name="title_details">Детали</string>
+    <string name="without_name">Без имени</string>
+
+</resources>
