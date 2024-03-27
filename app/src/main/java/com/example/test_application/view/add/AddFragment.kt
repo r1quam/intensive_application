@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.test_application.R
 import com.example.test_application.databinding.FragmentAddBinding
+import com.example.test_application.domain.entity.Priority
 import com.example.test_application.utils.day
 import com.example.test_application.utils.getDateFormatted
 import com.example.test_application.utils.getTimeFormatted
@@ -39,8 +40,15 @@ class AddFragment : BaseFragment<FragmentAddBinding>() {
             etTimeStart.setOnClickListener { showTimePickerDialog(true) }
             etTimeFinish.setOnClickListener { showTimePickerDialog(false) }
             btnAdd.setOnClickListener {
-                viewModel.addTask(etName.text.toString(), etDescription.text.toString())
+                val priority = when {
+                    chip2.isChecked -> Priority.LOW
+                    chip3.isChecked -> Priority.NORMAL
+                    else -> Priority.HIGH
+                }
+                viewModel.addTask(etName.text.toString(), etDescription.text.toString(), priority)
+
             }
+
         }
 
         setDate()

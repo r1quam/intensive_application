@@ -3,6 +3,7 @@ package com.example.test_application.view.add
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.test_application.domain.entity.Priority
 import com.example.test_application.domain.entity.Task
 import com.example.test_application.domain.repository.DomainRepository
 import com.example.test_application.utils.day
@@ -46,10 +47,12 @@ class AddViewModel @Inject constructor(
         }
     }
 
-    fun addTask(name: String, description: String) {
+    fun addTask(name: String, description: String, priority: Priority) {
         viewModelScope.launch(Dispatchers.IO) {
             if (timeStart <= timeFinish) {
-                val task = Task(timeStart.timeInMillis, timeFinish.timeInMillis, name, description)
+                val task = Task(
+                    timeStart.timeInMillis, timeFinish.timeInMillis, name, description, priority
+                )
                 domainRepository.insert(task)
                 canFinish.postValue(true)
             } else {

@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.test_application.databinding.FragmentDetailsBinding
+import com.example.test_application.domain.entity.Priority
 import com.example.test_application.utils.getDateFormatted
 import com.example.test_application.utils.getTimeFormatted
 import com.example.test_application.view.base.BaseFragment
@@ -35,6 +36,11 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
                 etTimeStart.setText(getTimeFormatted(it.dateStart))
                 etTimeFinish.setText(getTimeFormatted(it.dateFinish))
                 etDescription.setText(it.description)
+                when(it.priority) {
+                    Priority.HIGH -> chip2.isChecked = true
+                    Priority.NORMAL -> chip3.isChecked = true
+                    Priority.LOW -> chip4.isChecked = true
+                }
             }
         }
 

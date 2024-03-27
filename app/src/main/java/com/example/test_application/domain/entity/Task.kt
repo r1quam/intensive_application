@@ -15,7 +15,15 @@ data class Task(
     val name: String,
     @ColumnInfo(name = "description")
     val description: String,
+    @ColumnInfo(name = "priority")
+    val priority: Priority,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int = 0,
 )
+
+enum class Priority {
+    HIGH,
+    NORMAL,
+    LOW
+}
