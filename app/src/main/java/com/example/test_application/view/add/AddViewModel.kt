@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.test_application.domain.entity.Priority
 import com.example.test_application.domain.entity.Task
 import com.example.test_application.domain.repository.DomainRepository
+import com.example.test_application.utils.AlarmUtils
 import com.example.test_application.utils.day
 import com.example.test_application.utils.hour
 import com.example.test_application.utils.minute
@@ -14,6 +15,7 @@ import com.example.test_application.utils.year
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -22,7 +24,7 @@ class AddViewModel @Inject constructor(
     private val domainRepository: DomainRepository,
 ) : ViewModel() {
 
-    val canFinish = MutableLiveData<Boolean>()
+    val canFinish = MutableLiveData<Calendar?>()
 
     var timeStart: Calendar = Calendar.getInstance()
     var timeFinish: Calendar = Calendar.getInstance()
@@ -54,9 +56,9 @@ class AddViewModel @Inject constructor(
                     timeStart.timeInMillis, timeFinish.timeInMillis, name, description, priority
                 )
                 domainRepository.insert(task)
-                canFinish.postValue(true)
+                canFinish.postValue(timeStart)
             } else {
-                canFinish.postValue(false)
+                canFinish.postValue(null)
             }
         }
     }

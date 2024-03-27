@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.test_application.R
 import com.example.test_application.databinding.FragmentAddBinding
 import com.example.test_application.domain.entity.Priority
+import com.example.test_application.utils.AlarmUtils
 import com.example.test_application.utils.day
 import com.example.test_application.utils.getDateFormatted
 import com.example.test_application.utils.getTimeFormatted
@@ -30,6 +31,8 @@ class AddFragment : BaseFragment<FragmentAddBinding>() {
         FragmentAddBinding::inflate
 
     private val viewModel: AddViewModel by viewModels()
+
+    private val alarmUtils by lazy { AlarmUtils(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +57,10 @@ class AddFragment : BaseFragment<FragmentAddBinding>() {
         setDate()
 
         viewModel.canFinish.observe(viewLifecycleOwner) {
-            if (it) findNavController().popBackStack() else showErrorToast()
+            it?.let {
+                alarmUtils.setAlarm(it)
+                findNavController().popBackStack()
+            } ?: showErrorToast()
         }
     }
 
